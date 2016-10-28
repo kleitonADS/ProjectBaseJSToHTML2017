@@ -14,6 +14,7 @@ var gulp          = require('gulp'),
 gulp.task('sass', function() {
     return gulp.src("_assents/css/*.scss")
     .pipe(sass())
+    .pipe(autoPrefixer())
     .pipe(gulp.dest("_build/css"))
     .pipe(browserSync.stream());
 });
@@ -24,10 +25,27 @@ gulp.task('serve', ['sass'], function() {
     browserSync.init({
         server: "_build"
     });
-    gulp.watch("_assents/scss/*.scss", ['sass']);
-    gulp.watch("_assents/*.html").on('change', browserSync.reload);
-    gulp.watch("_assents/*.js").on('change', browserSync.reload);
+
 });
 
+// jade task
+gulp.task('jade', function(){
+  gulp.src('jadeFiles/*.jade')
+  .pipe(jade({
+    pretty:true
+  }))
+  .pipe(gulp.dest('_build'))
+
+});
+
+// watch task
+gulp.task('watch', function(){
+
+  gulp.watch("_assents/css/*.scss", ['sass']);
+  gulp.watch("jadeFiles/*.jade", ["jade"]).on('change', browserSync.reload);
+  gulp.watch("_assents/js/*.js").on('change', browserSync.reload);
+})
+
+
 // Default Task
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve', 'jade', 'watch']);
