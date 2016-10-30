@@ -21,6 +21,7 @@
     "Gulp-if",
     "gulp-clean-css",
     "Sass",
+    "bootstrap-sass"
     "Browser-sync"
   ],
   "author": "Kleiton Azevedo",
@@ -31,6 +32,7 @@
   "homepage": "https://github.com/kleitonADS/jsBaseProject#readme",
   "devDependencies": {
     "bootstrap": "^4.0.0-alpha.5",
+    "bootstrap-sass": "^3.3.7",
     "browser-sync": "^2.17.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
