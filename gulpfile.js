@@ -13,8 +13,10 @@ var gulp          = require('gulp'),
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
     return gulp.src("_assents/css/*.scss")
+    .pipe(plumber())
     .pipe(sass())
     .pipe(autoPrefixer())
+    .pipe(plumber.stop())
     .pipe(gulp.dest("_build/css"))
     .pipe(browserSync.stream());
 });
@@ -31,9 +33,11 @@ gulp.task('serve', ['sass'], function() {
 // jade task
 gulp.task('jade', function(){
   gulp.src('jadeFiles/*.jade')
+  .pipe(plumber())
   .pipe(jade({
     pretty:true
   }))
+  .pipe(plumber.stop())
   .pipe(gulp.dest('_build'))
 
 });
@@ -42,10 +46,16 @@ gulp.task('jade', function(){
 gulp.task('watch', function(){
 
   gulp.watch("_assents/css/*.scss", ['sass']);
-  gulp.watch("jadeFiles/*.jade", ["jade"]).on('change', browserSync.reload);
+  gulp.watch("jadeFiles/*.jade", ['jade']).on('change', browserSync.reload);
   gulp.watch("_assents/js/*.js").on('change', browserSync.reload);
 })
 
+// js task
+gulp.task('js', function(){
 
+  gulp.src('_assents/js/*.js')
+  .pipe(gulp.dest('_build/js'))
+
+});
 // Default Task
-gulp.task('default', ['serve', 'jade', 'watch']);
+gulp.task('default', ['serve', 'jade', 'watch', 'js']);
