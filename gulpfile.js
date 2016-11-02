@@ -8,7 +8,14 @@ var gulp          = require('gulp'),
     gulpIf        = require('gulp-if'),
     env           = process.env.NODE_ENV || 'dev',
     uglify        = require('gulp-uglify'),
+    bootstrapSass = require('bootstrap-sass'),
+    jquery        = require('jquery'),
     browserSync   = require('browser-sync').create();
+
+// Bootstrap scss source
+
+
+console.log( bootstrapSass);
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
@@ -22,7 +29,7 @@ gulp.task('sass', function() {
 });
 
 
-// Static Server + watching scss/html files
+// Static Server
 gulp.task('serve', ['sass'], function() {
     browserSync.init({
         server: "_build"
@@ -57,5 +64,6 @@ gulp.task('js', function(){
   .pipe(gulp.dest('_build/js'))
 
 });
+
 // Default Task
 gulp.task('default', ['serve', 'jade', 'watch', 'js']);
