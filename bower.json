@@ -1,0 +1,32 @@
+{
+  "name": "jsbaseproject",
+  "description": "project",
+  "main": "index.html",
+  "authors": [
+    "Kleiton Azevedo"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "NodeJS",
+    "Gulp",
+    "Gulp-Jade",
+    "Gulp-autoprefixer",
+    "Gulp-imagemin",
+    "Gulp-uglyfi",
+    "Gulp-plumber",
+    "Gulp-if",
+    "gulp-clean-css",
+    "Sass",
+    "bootstrap-sass",
+    "Browser-sync"
+  ],
+  "homepage": "https://github.com/kleitonADS/jsBaseProject",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7"
+  }
+}

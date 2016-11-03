@@ -8,20 +8,36 @@ var gulp          = require('gulp'),
     gulpIf        = require('gulp-if'),
     env           = process.env.NODE_ENV || 'dev',
     uglify        = require('gulp-uglify'),
-    bootstrapSass = require('bootstrap-sass'),
-    jquery        = require('jquery'),
+    imageIn       = require('Gulp-imagemin'),
     browserSync   = require('browser-sync').create();
 
 // Bootstrap scss source
+var config = {
+    bootstrapDir: './bower_components/bootstrap-sass',
+    publicDir: '_build',
+};
 
+// Task Fonts Bootstrap
+gulp.task('fonts', function() {
+    gulp.src(config.bootstrapDir + '/assets/fonts/**/*')
+    .pipe(gulp.dest(config.publicDir + '/css/fonts'));
+});
 
-console.log( bootstrapSass);
+// Task imagem
+gulp.task('imagen', function(){
+  gulp.src('_assents/img/*.*')
+  .pipe(imageIn())
+  .pipe(gulp.dest('_build/img'))
+
+});
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return gulp.src("_assents/css/*.scss")
+    gulp.src("_assents/css/*.scss")
     .pipe(plumber())
-    .pipe(sass())
+    .pipe(sass({
+        includePaths: [config.bootstrapDir + '/assets/stylesheets'],
+    }))
     .pipe(autoPrefixer())
     .pipe(plumber.stop())
     .pipe(gulp.dest("_build/css"))
@@ -66,4 +82,4 @@ gulp.task('js', function(){
 });
 
 // Default Task
-gulp.task('default', ['serve', 'jade', 'watch', 'js']);
+gulp.task('default', ['serve', 'jade', 'watch', 'js', 'fonts', 'imagen']);
